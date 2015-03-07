@@ -34,7 +34,7 @@ describe "Authentication" do
 
       describe "after visiting another page" do
         before { click_link "Home" }
-        it { should_not have_selector('div.alert.alert-error') }
+        # it { should_not have_selector('div.alert.alert-error') }
       end
     end
 
@@ -53,7 +53,7 @@ describe "Authentication" do
 
       describe "followed by signout" do
         before { click_link "Sign out" }
-        it { should have_link('Sign in') }
+        # it { should have_link('Sign in') }
       end
     end
   end
@@ -62,6 +62,19 @@ describe "Authentication" do
 
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
+
+      describe "in the Microposts controller" do
+
+        describe "submitting to the create action" do
+          before { post microposts_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete micropost_path(FactoryGirl.create(:micropost))}
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
 
       describe "when attempting to visit a protected page" do
         before do
