@@ -5,9 +5,12 @@ gem 'rails', '4.1.5'
 gem 'bootstrap-sass','2.3.2.0'
 gem 'sprockets'
 gem 'bcrypt-ruby','3.1.2'
+gem 'faker','1.1.2'
+gem 'will_paginate', '3.0.4'
 
 group :development, :test do
-  gem 'rspec-rails', '2.13.1'
+#  gem 'rspec-rails', '2.13.1'
+  gem 'rspec-rails' , '~> 2.14.0.rc1'
   gem 'sqlite3','1.3.8'
   gem 'minitest'
   gem 'guard', '2.6.1'
