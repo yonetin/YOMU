@@ -31,6 +31,17 @@ describe "Static Pages" do
           expect(page).to have_selector("li##{item.id}", text: item.content)
         end
       end
+
+      describe "follower/following counts" do
+        let(:other_user) { FactoryGirl.create(:user) }
+        before do
+          other_user.follow!(user)
+          visit root_path
+        end
+
+        it { should have_link("0 following", href: following_user_path(user))}
+        it { should have_link("1 followers", href: followers_user_path(user))}
+      end
     end
   end
 
@@ -57,6 +68,8 @@ describe "Static Pages" do
 
     it_should_behave_like "all static pages"
   end
+    # expect(page).to have_title("#{base_title}Contact")
+    # click_link "Sign up now!"
 
   it "should have the right links on the layout" do
     # visit root_path
@@ -65,8 +78,6 @@ describe "Static Pages" do
     # click_link "Help"
     # expect(page).to have_title("#{base_title}Help")
     # click_link "Contact"
-    # expect(page).to have_title("#{base_title}Contact")
-    # click_link "Sign up now!"
     # expect(page).to have_title("#{base_title}Sign up")
     # click_link "sample app"
     # expect(page).to have_title("#{base_title}Home")
