@@ -63,6 +63,20 @@ describe "Authentication" do
     describe "for non-signed-in users" do
       let(:user) { FactoryGirl.create(:user) }
 
+      # Articleのアクセス制御テスト
+      describe "in the Articles controller" do
+
+        describe "submitting to the create action" do
+          before { post articles_path }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+
+        describe "submitting to the destroy action" do
+          before { delete article_path(FactoryGirl.create(:article)) }
+          specify { expect(response).to redirect_to(signin_path) }
+        end
+      end
+
       describe "in the Relatinships controller" do
         describe "submitting to the create action" do
           before { post relationships_path }

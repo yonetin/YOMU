@@ -14,6 +14,12 @@ describe User do
   it { should respond_to(:authenticate) }
   it { should respond_to(:admin) }
   it { should respond_to(:microposts) }
+
+  # URLの要素はarticle
+  it { should respond_to(:articles) }
+  # 一覧はloadingで取得する
+  it { should respond_to(:loading) }
+
   it { should respond_to(:feed) }
   it { should respond_to(:relationships) }
   it { should respond_to(:followed_users) }
@@ -23,6 +29,41 @@ describe User do
   it { should respond_to(:followers) }
 
   it { should be_valid }
+
+  # ここからオリジナルのコードを記載する（2015/3/15）
+  describe "article associations" do
+    before { @user.save }
+    let!(:older_article) do
+      FactoryGirl.create(:article, user: @user, created_at: 1.day.ago)
+    end
+
+    let!(:newer_article) do
+      FactoryGirl.create(:article, user: @user ,created_at: 1.hour.ago)
+    end
+
+    it "should have the right articles in the right order" do
+      expect(@user.articles.to_a).to eq [newer_article, older_article]
+    end
+
+    it "should destroy associated articles" do
+      articles = @user.articles.to_a
+      @user.destroy
+      expect(articles).not_to be_empty
+      articles.each do |article|
+        expect(Article.where(id: article.id)).to be_empty
+      end
+    end
+
+    describe "status" do
+      let(:unfollowed_post) do
+        FactoryGirl.create(:article, user: FactoryGirl.create(:user))
+      end
+
+      its(:loading) { should include(newer_article) }
+      its(:loading) { should include(older_article) }
+      its(:loading) { should_not include(unfollowed_post) }
+    end
+  end
 
   describe "following" do
     let(:other_user) { FactoryGirl.create(:user) }

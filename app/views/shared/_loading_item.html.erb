@@ -1,0 +1,9 @@
+<li id="<%= loading_item.id %>">
+<span class="user">
+  <%= link_to loading_item.user.name, loading_item.user %>
+</span>
+<span class="content"><%= loading_item.url %></span>
+<span class="timestamp">
+  Posted <%= time_ago_in_words(loading_item.created_at) %> ago.
+</span>
+</li>

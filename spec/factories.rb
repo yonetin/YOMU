@@ -13,4 +13,10 @@ FactoryGirl.define do
     content "Lorem ipsum"
     user
   end
+
+  factory :article do
+    url "http://www.yahoo.co.jp"
+    user
+  end
 end
+

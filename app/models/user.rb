@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  has_many :articles, dependent: :destroy
   has_many :microposts, dependent: :destroy
   has_many :relationships, foreign_key: "follower_id", dependent: :destroy
   has_many :followed_users, through: :relationships, source: :followed
@@ -29,6 +30,10 @@ class User < ActiveRecord::Base
     #完全な実装は11章を参照
     # Micropost.where("user_id = ?", id)
     Micropost.from_users_followed_by(self)
+  end
+
+  def loading
+    Article.where("user_id = ?", id)
   end
 
   def following?(other_user)

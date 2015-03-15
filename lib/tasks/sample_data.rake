@@ -4,6 +4,7 @@ namespace :db do
     make_users
     make_microposts
     make_relationships
+    make_articles
   end
 end
 
@@ -22,6 +23,15 @@ def make_users
                    password_confirmation: password,
                    email: email)
     end
+end
+
+# Articleのサンプル文を作成する
+def make_articles
+  users = User.limit(6)
+  50.times do
+    url = "http://#{Faker::Lorem.sentence(5)}.co.jp"
+    users.each { |user| user.articles.create!(url: url) }
+  end
 end
 
 def make_microposts

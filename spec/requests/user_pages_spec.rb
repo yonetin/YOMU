@@ -88,11 +88,20 @@ describe "UserPages" do
     let(:user) { FactoryGirl.create(:user) }
     let!(:m1) { FactoryGirl.create(:micropost, user: user, content: "Foo") }
     let!(:m2) { FactoryGirl.create(:micropost, user: user, content: "Bar") }
-
+    let!(:a1) { FactoryGirl.create(:article, user: user, url: "http://www.yahoo.co.jp") }
+    let!(:a2) { FactoryGirl.create(:article, user: user, url: "http://www.yahoo.co.jp") }
+    
     before { visit user_path(user) }
 
     it { should have_content(user.name) }
     it { should have_title(user.name) }
+
+    # Article要素のテストを実装する
+    describe "articles" do
+      it { should have_content(a1.url) }
+      it { should have_content(a2.url) }
+      it { should have_content(user.articles.count) }
+    end
 
     describe "follow/unfollow buttons" do
       let(:other_user) { FactoryGirl.create(:user) }
