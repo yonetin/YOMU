@@ -18,4 +18,9 @@ describe Article do
     before { @article.user_id = nil }
     it { should_not be_valid }
   end
+
+  # contentの生成、格納をテスト
+  describe "when fill in url, content is written" do
+    before { }
+  end
 end

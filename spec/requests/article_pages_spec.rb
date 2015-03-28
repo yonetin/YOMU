@@ -28,6 +28,10 @@ describe "ArticlePages" do
       it "should create a article" do
         expect { click_button "Register" }.to change(Article, :count).by(1)
       end
+      
+      it { should have_content("http://www.yahoo.co.jp") }
+      # 登録したArticleの要素をcontentとして表示されていること（未完成）
+      it { should have_content("ニュース") }
     end
   end
 end

@@ -7,6 +7,7 @@ gem 'sprockets'
 gem 'bcrypt-ruby','3.1.2'
 gem 'faker','1.1.2'
 gem 'will_paginate', '3.0.4'
+gem 'nokogiri'
 
 group :development, :test do
   gem 'rspec-rails' , '~> 2.14.0.rc1'
