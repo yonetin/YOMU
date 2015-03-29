@@ -24,9 +24,13 @@ class ArticlesController < ApplicationController
 
   def create_content(url)
     # URLをもとに中身のPタグのコンテンツを抜き出す
-    doc = Nokogiri::HTML(open(url))
-    @content = doc.xpath('//p').inner_text
-    @content
+    begin
+      doc = Nokogiri::HTML(open(url))
+      @content = doc.xpath('//p').inner_text
+      @content
+    rescue
+      doc = false
+    end
   end
 
 

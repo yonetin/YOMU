@@ -24,14 +24,16 @@ describe "ArticlePages" do
 
     describe "with valid information" do
 
-      before { fill_in 'article_url', with: "http://www.yahoo.co.jp" }
+      before { fill_in 'article_url',
+        with: "http://www.animenewsnetwork.com/review/yowamushi-pedal-grande-road/episode-21/.85794" }
       it "should create a article" do
         expect { click_button "Register" }.to change(Article, :count).by(1)
       end
       
-      it { should have_content("http://www.yahoo.co.jp") }
+      # URLの登録を確認する
+      it { should have_content("http://www.animenewsnetwork.com/review/yowamushi-pedal-grande-road/episode-21/.85794") }
       # 登録したArticleの要素をcontentとして表示されていること（未完成）
-      it { should have_content("ニュース") }
+      it { should have_content("hogehoge") }
     end
   end
 end
