@@ -29,7 +29,7 @@ class ArticlesController < ApplicationController
       @content = doc.xpath('//p').inner_text
       @content
     rescue
-      doc = false
+      doc = "error"
     end
   end
 
