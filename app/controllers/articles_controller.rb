@@ -1,5 +1,6 @@
 class ArticlesController < ApplicationController
   before_action :signed_in_user , only: [:create, :destroy]
+  before_action :correct_user, only: :destroy
   require 'open-uri'
   require 'nokogiri'
 
@@ -20,6 +21,8 @@ class ArticlesController < ApplicationController
   end
 
   def destroy
+    @article.destroy
+    redirect_to root_url
   end
 
   def create_content(url)
@@ -40,4 +43,8 @@ class ArticlesController < ApplicationController
     params.require(:article).permit(:url)
   end
 
+  def correct_user
+    @article = current_user.articles.find_by(id: params[:id])
+    redirect_to root_url if @article.nil?
+  end
 end

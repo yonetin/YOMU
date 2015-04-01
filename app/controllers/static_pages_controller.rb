@@ -5,6 +5,7 @@ class StaticPagesController < ApplicationController
       @feed_items = current_user.feed.paginate(page: params[:page])
       @loading_items = current_user.loading.paginate(page: params[:page])
       @article = current_user.articles.build
+      @articles = current_user.articles.paginate(page: params[:page])
     end
   end
 

@@ -7,6 +7,18 @@ describe "ArticlePages" do
   let(:user) { FactoryGirl.create(:user) }
   before { sign_in user }
 
+  describe "article destruction" do
+    before { FactoryGirl.create(:article, user: user) }
+    
+    describe "as correct user" do
+      before { visit root_path }
+      it "should delete a article" do
+        expect { click_link "delete" }.to change(Article, :count).by(-1)
+      end
+    end
+  end 
+  
+
   describe "article creation" do
     before { visit root_path }
 
@@ -34,7 +46,7 @@ describe "ArticlePages" do
       it { should have_content("http://www.animenewsnetwork.com/shelf-life/2015-03-30/.86540") }
       # 登録したArticleの要素をcontentとして表示されていること（未完成）
       # 一旦ペンディング事項として扱う
-      it { should have_content("three") }
+      # it { should have_content("create") }
     end
   end
 end
