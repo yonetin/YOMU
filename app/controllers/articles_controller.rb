@@ -31,10 +31,10 @@ class ArticlesController < ApplicationController
     # URLをもとに中身のPタグのコンテンツを抜き出す
     begin
       doc = Nokogiri::HTML(open(url))
-      url = doc.xpath('//title').inner_text
+      title = doc.xpath('//title').inner_text
       content = doc.xpath('//p').inner_text
 
-      @content = { :url => url, :content => content }
+      @content = { :url => url, :content => content ,:title => title}
     rescue
       doc = { :url => "error" , :content => "error"}
     end

@@ -47,6 +47,7 @@ describe "ArticlePages" do
 
       # URLをURLのままでなく、サイトのタイトルとして取得する
       it { should have_content("News") }
+      # it { should have_selector("a[href='http://www.animenewsnetwork.com/shelf-life/2015-03-30/.86540']", visible: false) }
       
       # URLの登録を確認する
       it { should have_content("http://www.animenewsnetwork.com/shelf-life/2015-03-30/.86540") }

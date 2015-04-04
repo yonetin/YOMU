@@ -9,6 +9,7 @@ describe Article do
 
   it { should respond_to(:url) }
   it { should respond_to(:content) }
+  it { should respond_to(:title) }
   it { should respond_to(:words_count) }
   its(:user) { should eq user }
 
