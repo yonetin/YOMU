@@ -15,6 +15,9 @@ describe "ArticlePages" do
       it "should delete a article" do
         expect { click_link "delete" }.to change(Article, :count).by(-1)
       end
+
+      # オリジナルサイトへのリンクの存在を確認
+      it { should have_content("view original site") }
     end
   end 
   
@@ -41,6 +44,9 @@ describe "ArticlePages" do
       it "should create a article" do
         expect { click_button "Register" }.to change(Article, :count).by(1)
       end
+
+      # URLをURLのままでなく、サイトのタイトルとして取得する
+      it { should have_content("News") }
       
       # URLの登録を確認する
       it { should have_content("http://www.animenewsnetwork.com/shelf-life/2015-03-30/.86540") }

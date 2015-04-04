@@ -8,9 +8,11 @@ class ArticlesController < ApplicationController
     url = article_url_params
     url = url["url"]
     content = create_content(url)
+    article = content
 
+    # title レコードを追加する必要あり
     # buildするコンテンツをハッシュ形式で保存
-    article = { :url => url , :content => content }
+    # article = { :url => url , :content => content }
     @article = current_user.articles.build(article)
     if @article.save
       flash[:success] = "Article created"
@@ -29,12 +31,15 @@ class ArticlesController < ApplicationController
     # URLをもとに中身のPタグのコンテンツを抜き出す
     begin
       doc = Nokogiri::HTML(open(url))
-      @content = doc.xpath('//p').inner_text
-      @content
+      url = doc.xpath('//title').inner_text
+      content = doc.xpath('//p').inner_text
+
+      @content = { :url => url, :content => content }
     rescue
-      doc = "error"
+      doc = { :url => "error" , :content => "error"}
     end
   end
+
 
 
   private
