@@ -18,6 +18,9 @@ describe "ArticlePages" do
 
       # オリジナルサイトへのリンクの存在を確認
       it { should have_content("view original site") }
+
+      # 単語閲覧ページへのリンクを確認
+      it { should have_content("words that appear") }
     end
   end 
   
@@ -54,6 +57,21 @@ describe "ArticlePages" do
       # 登録したArticleの要素をcontentとして表示されていること（未完成）
       # 一旦ペンディング事項として扱う
       # it { should have_content("create") }
+    end
+  end
+
+  describe "show page" do
+    before { FactoryGirl.create(:article, user: user) }
+
+    describe "content exists" do
+      before { visit article_path(user.articles.first.id) }
+
+      it { should have_content("sample_title") }
+      it { should have_content("sample") }
+      it { should have_content("content") }
+      # content文字列が3つ存在する
+      it { should have_content("3") }
+      it { should have_selector("td", text: "content") }
     end
   end
 end

@@ -13,4 +13,5 @@
     title: loading_item.content %>
   <% end %>
   / <%= link_to "view original site","#{loading_item.url}" %>
+  / <%= link_to "words that appear", article_path("#{loading_item.id}") %>
 </li>

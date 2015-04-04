@@ -1,8 +1,19 @@
 class ArticlesController < ApplicationController
-  before_action :signed_in_user , only: [:create, :destroy]
+  before_action :signed_in_user , only: [:create, :destroy, :show]
   before_action :correct_user, only: :destroy
   require 'open-uri'
   require 'nokogiri'
+
+  def show
+    @words = {}
+    article_content = Article.find(params[:id]).content
+    words = article_content.split(" ")
+    words.each do |word|
+    @article = Article.find(params[:id])
+      @words["#{word}"] == nil unless @words["#{word}"] = @words["#{word}"].to_i + 1
+    end
+    @words  = @words.sort_by{ |k,v| -v }
+  end
 
   def create
     url = article_url_params

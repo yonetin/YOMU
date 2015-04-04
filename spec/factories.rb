@@ -16,7 +16,8 @@ FactoryGirl.define do
 
   factory :article do
     url "http://www.animenewsnetwork.com/shelf-life/2015-03-30/.86540"
-    content "hogehoge"
+    content "content content content sample sample"
+    title "sample_title"
     user
   end
 end
