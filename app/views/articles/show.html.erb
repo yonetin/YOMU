@@ -16,6 +16,7 @@
         </tr>
       </thead>
       <% @words.each do |key, value| %>
+        <% break if value == 1 #出現1回の文字は表示しない %>
         <tr>
           <td><%= key %></td>
           <td><%= value %></td>

@@ -9,9 +9,10 @@ class ArticlesController < ApplicationController
     article_content = Article.find(params[:id]).content
     words = article_content.split(" ")
     words.each do |word|
-    @article = Article.find(params[:id])
+      word = word.downcase
       @words["#{word}"] == nil unless @words["#{word}"] = @words["#{word}"].to_i + 1
     end
+    @article = Article.find(params[:id])
     @words  = @words.sort_by{ |k,v| -v }
   end
 

@@ -72,6 +72,8 @@ describe "ArticlePages" do
       # content文字列が3つ存在する
       it { should have_content("3") }
       it { should have_selector("td", text: "content") }
+      # once文字列は1つしか存在しないためviewに残らない
+      it { should_not have_content("once") }
     end
   end
 end
